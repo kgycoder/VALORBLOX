@@ -1,0 +1,403 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+}
+
+/* 로딩 화면 */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e1e1e 0%, #000 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loading-screen h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: 0.3rem;
+    background: linear-gradient(45deg, #ff4655, #ff8a00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+}
+
+/* 크로스헤어 */
+#crosshair {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    pointer-events: none;
+}
+
+.crosshair-dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #00ff00;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 4px #00ff00;
+}
+
+.crosshair-line {
+    position: absolute;
+    background: #00ff00;
+    box-shadow: 0 0 2px #00ff00;
+}
+
+.crosshair-line.top,
+.crosshair-line.bottom {
+    width: 2px;
+    height: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.crosshair-line.top { top: -14px; }
+.crosshair-line.bottom { bottom: -14px; }
+
+.crosshair-line.left,
+.crosshair-line.right {
+    width: 8px;
+    height: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.crosshair-line.left { left: -14px; }
+.crosshair-line.right { right: -14px; }
+
+/* HUD */
+#hud {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.top-info {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.team-score {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.ally-score {
+    color: #4CAF50;
+    margin-right: 20px;
+}
+
+.enemy-score {
+    color: #f44336;
+}
+
+.round-info, .time-info {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+}
+
+.bottom-info {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 40px;
+}
+
+.weapon-info {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 25px;
+    border-radius: 10px;
+    border: 2px solid #ff4655;
+}
+
+.weapon-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ff4655;
+    margin-bottom: 5px;
+}
+
+.ammo-info {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.current-ammo {
+    color: #fff;
+}
+
+.separator, .reserve-ammo {
+    color: #888;
+    font-size: 1.5rem;
+}
+
+.health-info {
+    flex: 1;
+    max-width: 300px;
+    margin: 0 20px;
+}
+
+.health-bar {
+    width: 100%;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid #4CAF50;
+    margin-bottom: 5px;
+}
+
+.health-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    transition: width 0.3s ease;
+}
+
+.health-text {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.money-info {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 2px solid #FFD700;
+    color: #FFD700;
+}
+
+/* 킬로그 */
+#kill-log {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    width: 300px;
+}
+
+.kill-message {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 구매 메뉴 */
+#buy-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1000;
+    pointer-events: all;
+    border: 3px solid #ff4655;
+}
+
+#buy-menu h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #ff4655;
+}
+
+.buy-timer {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #FFD700;
+}
+
+.shop-category {
+    margin-bottom: 30px;
+}
+
+.shop-category h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #4CAF50;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+}
+
+.shop-items {
+    display: grid;
+    gap: 15px;
+}
+
+.shop-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.shop-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #ff4655;
+    transform: translateX(5px);
+}
+
+.item-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.item-stats {
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+.item-price {
+    color: #FFD700;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* 라운드 결과 */
+#round-result, #game-over {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 50px;
+    border-radius: 20px;
+    border: 3px solid #ff4655;
+}
+
+#round-result h1, #game-over h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px currentColor;
+}
+
+#result-text.victory, #game-result.victory {
+    color: #4CAF50;
+}
+
+#result-text.defeat, #game-result.defeat {
+    color: #f44336;
+}
+
+#restart-btn {
+    margin-top: 20px;
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    background: #ff4655;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#restart-btn:hover {
+    background: #ff6b77;
+    transform: scale(1.1);
+}
+
+/* Click to Play */
+#click-to-play {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 40px;
+    border-radius: 15px;
+    border: 2px solid #ff4655;
+    z-index: 5000;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+#click-to-play h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 스크롤바 스타일 */
+#buy-menu::-webkit-scrollbar {
+    width: 10px;
+}
+
+#buy-menu::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+#buy-menu::-webkit-scrollbar-thumb {
+    background: #ff4655;
+    border-radius: 5px;
+}
+
+#buy-menu::-webkit-scrollbar-thumb:hover {
+    background: #ff8a00;
+}
