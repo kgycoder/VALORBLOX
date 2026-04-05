@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactical FPS - Valorant Style</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 로딩 화면 -->
+    <div id="loading-screen">
+        <h1>TACTICAL FPS</h1>
+        <p>로딩 중...</p>
+    </div>
+
+    <!-- 게임 UI -->
+    <div id="game-ui">
+        <!-- 크로스헤어 -->
+        <div id="crosshair">
+            <div class="crosshair-dot"></div>
+            <div class="crosshair-line top"></div>
+            <div class="crosshair-line bottom"></div>
+            <div class="crosshair-line left"></div>
+            <div class="crosshair-line right"></div>
+        </div>
+
+        <!-- HUD -->
+        <div id="hud">
+            <!-- 상단 정보 -->
+            <div class="top-info">
+                <div class="team-score">
+                    <span class="ally-score">아군: <span id="ally-score">0</span></span>
+                    <span class="enemy-score">적군: <span id="enemy-score">0</span></span>
+                </div>
+                <div class="round-info">라운드 <span id="current-round">1</span>/25</div>
+                <div class="time-info"><span id="round-time">00:00</span></div>
+            </div>
+
+            <!-- 하단 정보 -->
+            <div class="bottom-info">
+                <div class="weapon-info">
+                    <div class="weapon-name" id="weapon-name">AK-47</div>
+                    <div class="ammo-info">
+                        <span class="current-ammo" id="current-ammo">30</span>
+                        <span class="separator">/</span>
+                        <span class="reserve-ammo" id="reserve-ammo">90</span>
+                    </div>
+                </div>
+                <div class="health-info">
+                    <div class="health-bar">
+                        <div class="health-fill" id="health-fill"></div>
+                    </div>
+                    <div class="health-text"><span id="health-value">100</span> HP</div>
+                </div>
+                <div class="money-info">
+                    💰 <span id="money">800</span>
+                </div>
+            </div>
+
+            <!-- 킬로그 -->
+            <div id="kill-log"></div>
+        </div>
+
+        <!-- 구매 메뉴 -->
+        <div id="buy-menu" class="hidden">
+            <h2>무기 상점</h2>
+            <div class="buy-timer">구매 시간: <span id="buy-time">10</span>초</div>
+            
+            <div class="shop-categories">
+                <div class="shop-category">
+                    <h3>주무기</h3>
+                    <div class="shop-items">
+                        <div class="shop-item" data-weapon="rifle" data-price="2900">
+                            <div class="item-name">라이플</div>
+                            <div class="item-stats">데미지: 40 | 연사력: 중간</div>
+                            <div class="item-price">💰 2900</div>
+                        </div>
+                        <div class="shop-item" data-weapon="smg" data-price="1600">
+                            <div class="item-name">SMG</div>
+                            <div class="item-stats">데미지: 25 | 연사력: 빠름</div>
+                            <div class="item-price">💰 1600</div>
+                        </div>
+                        <div class="shop-item" data-weapon="sniper" data-price="4700">
+                            <div class="item-name">저격총</div>
+                            <div class="item-stats">데미지: 150 | 연사력: 느림</div>
+                            <div class="item-price">💰 4700</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shop-category">
+                    <h3>보조무기</h3>
+                    <div class="shop-items">
+                        <div class="shop-item" data-weapon="pistol" data-price="0">
+                            <div class="item-name">권총 (기본)</div>
+                            <div class="item-stats">데미지: 30 | 연사력: 중간</div>
+                            <div class="item-price">💰 무료</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 라운드 결과 -->
+        <div id="round-result" class="hidden">
+            <h1 id="result-text">라운드 승리!</h1>
+            <p id="result-detail"></p>
+        </div>
+
+        <!-- 게임 종료 -->
+        <div id="game-over" class="hidden">
+            <h1 id="game-result">승리!</h1>
+            <p id="final-score"></p>
+            <button id="restart-btn">다시 시작</button>
+        </div>
+    </div>
+
+    <!-- Pointer Lock 안내 -->
+    <div id="click-to-play" class="hidden">
+        <h2>클릭하여 시작</h2>
+        <p>ESC를 눌러 마우스 잠금 해제</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
